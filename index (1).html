@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Aviator Simulator - Ferramenta Educacional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0f1e 0%, #0f172a 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 48px;
+            padding: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #f59e0b, #dc2626);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        .icon svg {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            border-radius: 100px;
+            padding: 6px 14px;
+            margin-top: 12px;
+            font-size: 0.75rem;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: rgba(239, 68, 68, 0.15);
+            border-left: 4px solid #ef4444;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+        }
+
+        .disclaimer p {
+            color: #fca5a5;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        /* Main Card */
+        .prediction-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 32px;
+            padding: 28px 20px;
+            text-align: center;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .prediction-label {
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .prediction-value {
+            font-size: 4rem;Fassa ainda um comando ou aplicativo semelhante a imagem em HTML eu real Fassa ainda um comando ou aplicativo semelhante a imagem em HTML eu real Fassa ainda um comando ou aplicativo semelhante a imagem em HTML eu real 
+                    font-weight: 800;
+            background: linear-gradient(135deg, #fbbf24, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 10px 0;
+        }
+
+        .multiplier-badge {
+            display: inline-block;
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 100px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 12px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .stat-number {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        /* Buttons */
+        .generate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f59e0b, #dc2626);
+            border: none;
+            padding: 16px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+        }
+
+        .generate-btn:active {
+            transform: scale(0.97);
+        }
+
+        .reset-btn {
+            width: 100%;
+            background: rgba(51, 65, 85, 0.8);
+            border: 1px solid #334155;
+            padding: 12px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* History */
+        .history {
+            margin-top: 24px;
+        }
+
+        .history-title {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .history-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .history-item {
+            background: #1e293b;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fbbf24;
+        }
+
+        .warning-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+                    <path d="M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2Z" fill="currentColor" stroke="none"/>
+                    <path d="M12 6L14 10L19 10.5L15 13.5L16 18L12 15.5L8 18L9 13.5L5 10.5L10 10L12 6Z" fill="rgba(255,255,255,0.9)"/>
+                </svg>
+            </div>
+            <h1>Aviator Predictor</h1>
+            <div class="badge">⚡ Modo Demonstração</div>
+        </div>
+
+        <div class="disclaimer">
+            <p>⚠️ <strong>IMPORTANTE:</strong> Esta ferramenta é apenas para fins educacionais e de demonstração. Jogos de avião usam geradores aleatórios certificados (Provably Fair). Não existe predição real com 97% de acerto. Jogue com responsabilidade.</p>
+        </div>
+
+        <div class="prediction-card">
+            <div class="prediction-label">PRÓXIMO MULTIPLICADOR (SIMULAÇÃO)</div>
+            <div class="prediction-value" id="predictionValue">1.50x</div>
+            <div class="multiplier-badge" id="confidenceBadge">🎯 Confiança: 97%</div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-label">Acertos</div>
+                <div class="stat-number" id="hitsCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total</div>
+                <div class="stat-number" id="totalCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Precisão</div>
+                <div class="stat-number" id="accuracy">0%</div>
+            </div>
+        </div>
+
+        <button class="generate-btn" id="generateBtn">🚀 GERAR PREDIÇÃO</button>
+        <button class="reset-btn" id="resetBtn">🔄 Resetar Estatísticas</button>
+
+        <div class="history">
+            <div class="history-title">📊 Histórico de Predições</div>
+            <div class="history-list" id="historyList">
+                <span style="color:#475569;">Nenhuma predição ainda</span>
+            </div>
+        </div>
+        <div class="warning-text">
+            * Resultados aleatórios para demonstração | Aviator é um jogo de sorte
+        </div>
+    </div>
+
+    <script>
+        // Configuração da simulação
+        let totalPredictions = 0;
+        let correctPredictions = 0;
+        let history = [];
+
+        // Faixas de multiplicadores (simulação realista)
+        const multiplierRanges = [
+            { min: 1.0, max: 1.5, weight: 40 },   // 40% de chance
+            { min: 1.5, max: 2.5, weight: 30 },   // 30% de chance
+            { min: 2.5, max: 5.0, weight: 15 },   // 15% de chance
+            { min: 5.0, max: 10.0, weight: 10 },  // 10% de chance
+            { min: 10.0, max: 50.0, weight: 5 }    // 5% de chance
+        ];
+
+        // Função para gerar multiplicador realista
+        function generateRealMultiplier() {
+            let totalWeight = multiplierRanges.reduce((sum, range) => sum + range.weight, 0);
+            let random = Math.random() * totalWeight;
+            let accumulated = 0;
+            
+            for (let range of multiplierRanges) {
+                accumulated += range.weight;
+                if (random <= accumulated) {
+                    let multiplier = range.min + Math.random() * (range.max - range.min);
+                    return parseFloat(multiplier.toFixed(2));
+                }
+            }
+            return parseFloat((1 + Math.random() * 3).toFixed(2));
+        }
+
+        // Função de predição "inteligente" - simula análise baseada em tendências
+        function generatePrediction() {
+            // Simula análise de padrões baseada no histórico recente
+            let predictedValue = 1.5;
+            
+            if (history.length > 0) {
+                let lastFew = history.slice(-5);
+                let avgMultiplier = lastFew.reduce((sum, val) => sum + val, 0) / lastFew.length;
+                
+                // Tendência: se últimos valores foram baixos, prediz médio; se altos, prediz baixo
+                if (avgMultiplier < 2.0) {
+                    predictedValue = 2.0 + Math.random() * 2;
+                } else if (avgMultiplier > 5.0) {
+                    predictedValue = 1.2 + Math.random() * 1.5;
+                } else {
+                    predictedValue = 1.8 + Math.random() * 2.5;
+                }
+            } else {
+                predictedValue = 1.5 + Math.random() * 2;
+            }
+            
+            return parseFloat(predictedValue.toFixed(2));
+        }
+
+        // Verifica se a predição foi precisa (margem de erro de 30%)
+        function isAccurate(prediction, actual) {
+            let margin = 0.3; // 30% de margem para considerar "acerto"
+            let minRange = prediction * (1 - margin);
+            let maxRange = prediction * (1 + margin);
+            return actual >= minRange && actual <= maxRange;
+        }
+
+        // Atualiza a interface
+        function updateUI() {
+            document.getElementById('hitsCount').innerText = correctPredictions;
+            document.getElementById('totalCount').innerText = totalPredictions;
+            
+            let accuracyPercent = totalPredictions === 0 ? 0 : ((correctPredictions / totalPredictions) * 100).toFixed(1);
+            document.getElementById('accuracy').innerText = `${accuracyPercent}%`;
+            
+            // Atualiza histórico
+            const historyDiv = document.getElementById('historyList');
+            if (history.length === 0) {
+                historyDiv.innerHTML = '<span style="color:#475569;">Nenhuma predição ainda</span>';
+            } else {
+                historyDiv.innerHTML = history.map((item, idx) => 
+                    `<div class="history-item" style="background: ${item.correct ? '#1e293b' : '#2d1a1a'}; color: ${item.correct ? '#4ade80' : '#f87171'}">
+                        ${item.prediction}x → ${item.actual}x ${item.correct ? '✓' : '✗'}
+                    </div>`
+                ).join('');
+            }
+        }
+
+        // Gera nova predição e resultado
+        function generateNewPrediction() {
+            // Gera predição baseada em "análise"
+            let prediction = generatePrediction();
+            
+            // Gera resultado real aleatório (o jogo real é aleatório)
+            let actualResult = generateRealMultiplier();
+            
+            // Verifica acerto
+            let accurate = isAccurate(prediction, actualResult);
+            
+            // Atualiza estatísticas
+            totalPredictions++;
+            if (accurate) {
+                correctPredictions++;
+            }
+            
+            // Adiciona ao histórico
+            history.unshift({
+                prediction: prediction,
+                actual: actualResult,
+                correct: accurate,
+                timestamp: new Date()
+            });
+            
+            // Limita histórico a 15 itens
+            if (history.length > 15) history.pop();
+            
+            // Atualiza display da predição
+            document.getElementById('predictionValue').innerHTML = `${prediction}x`;
+            
+            // Efeito visual de "acerto/erro" no card
+            const card = document.querySelector('.prediction-card');
+            card.style.transition = 'all 0.2s';
+            if (accurate) {
+                card.style.boxShadow = '0 0 20px rgba(74, 222, 128, 0.3)';
+                setTimeout(() => card.style.boxShadow = '', 300);
+            } else {
+                card.style.boxShadow = '0 0 20px rgba(248, 113, 113, 0.2)';
+                setTimeout(() => card.style.boxShadow = '', 300);
+            }
+            
+            // Atualiza UI
+            updateUI();
+            
+            // Mostra toast visual simples
+            showToast(accurate ? '✅ Predição correta!' : '❌ Predição incorreta');
+        }
+        
+        // Toast simples
+        function showToast(message) {
+            let toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = message.includes('correta') ? '#22c55e' : '#ef4444';
+            toast.style.color = 'white';
+            toast.style.padding = '10px 20px';
+            toast.style.borderRadius = '100px';
+            toast.style.fontSize = '0.85rem';
+            toast.style.fontWeight = '600';
+            toast.style.zIndex = '1000';
+            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+        
+        // Reset estatísticas
+        function resetStats() {
+            totalPredictions = 0;
+            correctPredictions = 0;
+            history = [];
+            updateUI();
+            document.getElementById('predictionValue').innerHTML = '1.50x';
+            showToast('🔄 Estatísticas resetadas');
+        }
+        
+        // Event listeners
+        document.getElementById('generateBtn').addEventListener('click', generateNewPrediction);
+        document.getElementById('resetBtn').addEventListener('click', resetStats);
+        
+        // Inicialização
+        updateUI();
+        
+        // Adiciona efeito de hover nos botões
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'translateY(-2px)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
